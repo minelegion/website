@@ -1,9 +1,10 @@
 import { Button, CardContent, Container, Grid, makeStyles, TextField, Typography } from "@material-ui/core";
 import { signIn, useSession } from "next-auth/client";
 import ResponseiveCard from "@components/ResponsiveCard/ResponsiveCard";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
+import Image from "next/image";
 
 const SigninPage = () => {
     const classes = useStyles();
@@ -17,22 +18,24 @@ const SigninPage = () => {
     const { enqueueSnackbar } = useSnackbar();
 
 
-    if(session) router.push("/dashboard");
+    if (session) router.push("/dashboard");
 
     const onLogin = async () => {
+        if (isLoading || disabled) return;
+
         setDisabled(true);
-        
+
         const { error } = await signIn("credentials", {
             redirect: false,
             username,
             password,
         });
 
-        if(error) {
+        if (error) {
             enqueueSnackbar(error, {
                 variant: "error",
             });
-            
+
             setDisabled(false);
         } else {
             enqueueSnackbar("Sikeres bejelentkezés!", {
@@ -42,24 +45,19 @@ const SigninPage = () => {
     };
 
     return (
-        <Grid container className={classes.container} alignItems={"center"}>
-            <Grid item xs={12}>
-                <Container maxWidth="sm">
-                    <ResponseiveCard maxHeightOnMobile={true}>
-                        <CardContent>
-                            <form onSubmit={async (e) => {
-                                e.preventDefault();
-                                await onLogin();
-                            }}>
-                                <Grid container spacing={2}>
+        <Fragment>
+            <Grid container className={classes.container} alignItems={"center"}>
+                <Grid item xs={12}>
+                    <Container maxWidth="sm">
+                        <ResponseiveCard maxHeightOnMobile={true}>
+                            <CardContent>
+                                <Grid container spacing={3}>
                                     <Grid item xs={12}>
-                                        <Typography variant="h5">
-                                            Bejelentkezés
-                                        </Typography>
+                                        <Typography variant="h5">Bejelentkezés</Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
-                                            disabled={isLoading}
+                                            disabled={isLoading || disabled}
                                             label="Felhasználónév"
                                             variant="outlined"
                                             fullWidth
@@ -69,7 +67,7 @@ const SigninPage = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
-                                            disabled={isLoading}
+                                            disabled={isLoading || disabled}
                                             label="Jelszó"
                                             type="password"
                                             variant="outlined"
@@ -81,8 +79,9 @@ const SigninPage = () => {
                                     <Grid item xs={12}>
                                         <Button
                                             variant="contained"
+                                            color="secondary"
                                             size="large"
-                                            disabled={isLoading}
+                                            disabled={isLoading || disabled || !!session}
                                             onClick={onLogin}
                                             fullWidth
                                         >
@@ -90,18 +89,39 @@ const SigninPage = () => {
                                         </Button>
                                     </Grid>
                                 </Grid>
-                            </form>
-                        </CardContent>
-                    </ResponseiveCard>
-                </Container>
+                            </CardContent>
+                        </ResponseiveCard>
+                    </Container>
+                </Grid>
             </Grid>
-        </Grid> 
+
+            <div className={classes.background}>
+                <Image
+                    src={"/img/bg.jpg"}
+                    quality={1}
+                    layout="fill"
+                    objectFit="cover"
+                />
+            </div>
+        </Fragment>
     );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     container: {
         minHeight: "100vh",
+        backdropFilter: "blur(32px)",
+        zIndex: 1000,
+    },
+    background: {
+        zIndex: -1,
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        top: 0,
+        pointerEvents: "none",
+        userSelect: "none",
     }
 }));
 

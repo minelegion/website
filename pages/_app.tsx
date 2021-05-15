@@ -1,34 +1,40 @@
-import { CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
-import { createTheme } from "@material-ui/core/styles"
+import { createMuiTheme, CssBaseline, NoSsr, ThemeProvider } from "@material-ui/core";
 import { AppProps } from "next/dist/next-server/lib/router/router";
 import { Provider as SessionProvider } from "next-auth/client";
 import Head from "next/head";
 import { SnackbarProvider } from "notistack";
+import { lightBlue, pink } from "@material-ui/core/colors";
 
-const theme = createTheme({
+const theme = createMuiTheme({
     palette: {
-        mode: "dark",
+        type: "dark",
+        background: {
+            default: "#000",
+            paper: "#111111",
+        },
+        primary: lightBlue,
+        secondary: pink,
     },
 });
 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
     return (
-        <SessionProvider>
-            <CssBaseline />
-            <Head>
-                <title>
-                    MineLegion
-                </title>
-            </Head>
-            <ThemeProvider theme={theme}>
-                <SnackbarProvider>
+        <SnackbarProvider>
+            <SessionProvider>
+                <CssBaseline />
+                <Head>
+                    <title>MineLegion</title>
+                    
+                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+                </Head>
+                <ThemeProvider theme={theme}>
                     <NoSsr>
                         <Component {...pageProps} />
                     </NoSsr>
-                </SnackbarProvider>
-            </ThemeProvider>
-        </SessionProvider>
+                </ThemeProvider>
+            </SessionProvider>
+        </SnackbarProvider>
     );
 };
 
