@@ -19,12 +19,18 @@ const SidenavHeader = () => {
                     <Image
                         className={classes.rounded}
                         src={`/api/avatar/${session.user?.name}`}
-                        width={64}
-                        height={64}
-                        quality={100}
+                        width={48}
+                        height={48}
+                        unoptimized={true}    
                     />
                 ) : (
-                    <Skeleton variant="rect" className={classes.rounded} width={64} height={64} />
+                    <Skeleton
+                        variant="rect"
+                        className={classes.rounded}
+                        width={48}
+                        height={48}
+                        animation={"wave"}
+                    />
                 )}
             </Grid>
             <Grid item className={classes.data}>
@@ -32,7 +38,13 @@ const SidenavHeader = () => {
                     {session ? (
                         session.user?.name
                     ) : (
-                        <Skeleton variant="rect" className={classes.rounded} width={172} height={24} />
+                        <Skeleton
+                            variant="rect"
+                            animation={"wave"}
+                            className={classes.rounded}
+                            width={172}
+                            height={24}
+                        />
                     )}
                 </Typography>
                 <Typography variant="body2" component="p">
@@ -46,15 +58,18 @@ const SidenavHeader = () => {
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         backgroundColor: theme.palette.primary.main,
-        padding: 16,
+        paddingLeft: 16,
+        paddingRight: 16,
+        paddingTop: 24,
+        paddingBottom: 24,
     },
     rounded: {
         userSelect: "none",
         borderRadius: theme.shape.borderRadius,
     },
     icon: {
-        width: 64,
-        height: 64,
+        width: 48,
+        height: 48,
         marginRight: 16,
         display: "flex",
         borderRadius: theme.shape.borderRadius,

@@ -1,6 +1,5 @@
 const get = async (input: RequestInfo, init?: RequestInit) => {
     const resp = await fetch(input, init);
-
     if(!resp.ok) throw new Error("A kiszolgáló nem érhető el!");
 
     const data = await resp.json();

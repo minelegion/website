@@ -8,14 +8,13 @@ const request = require('request');
 export default wrapper(async (req, res) => {
     const username: string = req.query["username"]+"";
 
-    const skin = null; 
-    /*
-    await prisma.skins.findOne({
+    const skin = await prisma.skin.findUnique({
         where: {
-            Nick: username
-        }
+            username,
+        },
     });
-    */
+
+    console.log(skin);
 
     res.setHeader('Cache-Control', 's-maxage=2419200, stale-while-revalidate, max-age=2419200');
 
@@ -24,7 +23,7 @@ export default wrapper(async (req, res) => {
         return;
     }
 
-    const data = JSON.parse(base64.decode(skin.Value));
+    const data = JSON.parse(base64.decode(skin.value));
 
     var skinUrl = data.textures.SKIN.url;
 

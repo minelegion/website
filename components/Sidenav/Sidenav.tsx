@@ -1,5 +1,6 @@
 import { AppBar, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import { HomeRounded as HomeIcon, MenuRounded as MenuIcon } from "@material-ui/icons";
+import { HomeRounded as HomeIcon, InsertEmoticonRounded as SkinIcon, MenuRounded as MenuIcon } from "@material-ui/icons";
+import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useState } from "react";
 import LogoutButton from "./LogoutButton";
 import SidenavHeader from "./SidenavHeader";
@@ -7,23 +8,40 @@ import SidenavHeader from "./SidenavHeader";
 const Sidenav = ({ children }: PropsWithChildren<{}>) => {
     const [open, setOpen] = useState(false);
 
+    const router = useRouter();
     const classes = useStyles();
 
     const DrawerContent = (
         <Fragment>
             <SidenavHeader />
-            <List className={classes.drawer}>
-                <ListItem button key={"home-button"}>
-                    <ListItemIcon>
-                        <HomeIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                        primary={"Főoldal"}
-                    />
-                </ListItem>
+            <div className={classes.drawer}>
+                <List>
+                    <ListItem button key={"home-button"}>
+                        <ListItemIcon>
+                            <HomeIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={"Főoldal"}
+                        />
+                    </ListItem>
+                    <ListItem
+                        onClick={() => router.push("/dashboard/skin")}
+                        button
+                        key={"skin-button"}
+                    >
+                        <ListItemIcon>
+                            <SkinIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={"Kinézet"}
+                        />
+                    </ListItem>
+                </List>
                 <Divider />
-                <LogoutButton />
-            </List>
+                <List>
+                    <LogoutButton />
+                </List>                
+            </div>
         </Fragment>
     );
 

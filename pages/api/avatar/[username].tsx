@@ -8,9 +8,7 @@ export default wrapper(async (req, res) => {
 
     const request = require('request');
     const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
-
-    res.setHeader('Cache-Control', 's-maxage=2419200, stale-while-revalidate, max-age=2419200');
-
+    
     let url = `${API_ENDPOINT}/skin/${username}`;
     request({ url, encoding: null }, (err, resp, buffer) => {
         let r = sharp(buffer).extract({

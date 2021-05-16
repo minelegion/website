@@ -8,24 +8,44 @@ datasource db {
 }
 
 model User {
-  id         Int     @id @default(autoincrement()) @db.UnsignedMediumInt
-  username   String  @unique @db.VarChar(255)
-  realname   String  @db.VarChar(255)
-  password   String  @db.VarChar(255)
-  ip         String? @db.VarChar(40)
+  id         Int       @id @default(autoincrement()) @db.UnsignedMediumInt
+  username   String    @unique @db.VarChar(255)
+  realname   String    @db.VarChar(255)
+  password   String    @db.VarChar(255)
+  ip         String?   @db.VarChar(40)
   lastlogin  BigInt?
-  x          Float   @default(0)
-  y          Float   @default(0)
-  z          Float   @default(0)
-  world      String  @default("world") @db.VarChar(255)
-  regdate    BigInt  @default(0)
-  regip      String? @db.VarChar(40)
-  yaw        Float?  @db.Float
-  pitch      Float?  @db.Float
-  email      String? @db.VarChar(255)
-  isLogged   Int     @default(0) @db.SmallInt
-  hasSession Int     @default(0) @db.SmallInt
-  totp       String? @db.VarChar(32)
+  x          Float     @default(0)
+  y          Float     @default(0)
+  z          Float     @default(0)
+  world      String    @default("world") @db.VarChar(255)
+  regdate    BigInt    @default(0)
+  regip      String?   @db.VarChar(40)
+  yaw        Float?    @db.Float
+  pitch      Float?    @db.Float
+  email      String?   @db.VarChar(255)
+  isLogged   Int       @default(0) @db.SmallInt
+  hasSession Int       @default(0) @db.SmallInt
+  totp       String?   @db.VarChar(32)
+  skin       Skin?     @relation(fields: [username], references: [username])
+  skinCopy   SkinCopy?
 
   @@map("authme")
+}
+
+model SkinCopy {
+  username String @id @map("Nick") @db.VarChar(255)
+  skin     String @map("Skin") @db.VarChar(16)
+  user     User   @relation(fields: [username], references: [username])
+
+  @@map("players")
+}
+
+model Skin {
+  username  String  @id @map("Nick") @db.VarChar(255)
+  value     String? @map("Value") @db.Text
+  signature String? @map("Signature") @db.Text
+  timestamp String? @db.Text
+  user      User?
+
+  @@map("skins")
 }

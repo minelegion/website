@@ -37,7 +37,7 @@ const LogoutButton = () => {
                     <Button onClick={onLogout} color="primary">Kijelentkezés</Button>
                 </DialogActions>
             </Dialog>
-            <ListItem button onClick={() => setOpen(true)}>
+            <ListItem button onClick={() => setOpen(true)} key={"logout-button"}>
                 <ListItemIcon>
                     <ExitIcon />
                 </ListItemIcon>
