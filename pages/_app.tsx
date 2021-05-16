@@ -4,14 +4,13 @@ import { Provider as SessionProvider } from "next-auth/client";
 import Head from "next/head";
 import { SnackbarProvider } from "notistack";
 import { lightBlue, pink } from "@material-ui/core/colors";
+import { useRouter } from "next/router";
+import Sidenav from "@components/Sidenav/Sidenav";
+import { Fragment } from "react";
 
 const theme = createMuiTheme({
     palette: {
         type: "dark",
-        background: {
-            default: "#000",
-            paper: "#111111",
-        },
         primary: lightBlue,
         secondary: pink,
     },
@@ -19,22 +18,30 @@ const theme = createMuiTheme({
 
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+    const router = useRouter();
+
+    const Wrapper =
+        router.pathname.startsWith("/dashboard") && !router.pathname.includes("signin") ?
+            Sidenav : Fragment;
+
     return (
-        <SnackbarProvider>
-            <SessionProvider>
-                <CssBaseline />
-                <Head>
-                    <title>MineLegion</title>
-                    
-                    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-                </Head>
-                <ThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
+            <SnackbarProvider>
+                <SessionProvider>
+                    <CssBaseline />
+                    <Head>
+                        <title>MineLegion</title>
+
+                        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
+                    </Head>
                     <NoSsr>
-                        <Component {...pageProps} />
+                        <Wrapper>
+                            <Component {...pageProps} />
+                        </Wrapper>
                     </NoSsr>
-                </ThemeProvider>
-            </SessionProvider>
-        </SnackbarProvider>
+                </SessionProvider>
+            </SnackbarProvider>
+        </ThemeProvider>
     );
 };
 
