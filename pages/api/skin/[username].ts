@@ -13,11 +13,7 @@ export default wrapper(async (req, res) => {
             username,
         },
     });
-
-    console.log(skin);
-
-    res.setHeader('Cache-Control', 's-maxage=2419200, stale-while-revalidate, max-age=2419200');
-
+    
     if(skin === null) {
         request.get(`https://mc-heads.net/skin/${username}`).pipe(res);
         return;

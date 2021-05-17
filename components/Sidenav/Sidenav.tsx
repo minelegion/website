@@ -1,5 +1,5 @@
 import { AppBar, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import { HomeRounded as HomeIcon, InsertEmoticonRounded as SkinIcon, MenuRounded as MenuIcon } from "@material-ui/icons";
+import { HomeRounded as HomeIcon, InsertEmoticonRounded as SkinIcon, MenuRounded as MenuIcon, StarRounded as RanksIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useState } from "react";
 import LogoutButton from "./LogoutButton";
@@ -16,7 +16,11 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
             <SidenavHeader />
             <div className={classes.drawer}>
                 <List>
-                    <ListItem button key={"home-button"}>
+                    <ListItem
+                        button
+                        key={"home-button"}
+                        onClick={() => router.push("/dashboard")}
+                    >
                         <ListItemIcon>
                             <HomeIcon />
                         </ListItemIcon>
@@ -24,6 +28,9 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
                             primary={"Főoldal"}
                         />
                     </ListItem>
+                </List>
+                <Divider />
+                <List>
                     <ListItem
                         onClick={() => router.push("/dashboard/skin")}
                         button
@@ -34,6 +41,18 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
                         </ListItemIcon>
                         <ListItemText
                             primary={"Kinézet"}
+                        />
+                    </ListItem>
+                    <ListItem
+                        onClick={() => router.push("/dashboard/ranks")}
+                        button
+                        key={"ranks-button"}
+                    >
+                        <ListItemIcon>
+                            <RanksIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={"Rangok"}
                         />
                     </ListItem>
                 </List>
@@ -93,10 +112,7 @@ const useStyles = makeStyles((theme) => ({
         overflowX: "hidden",
     },
     main: {
-        marginTop: 56,
-        [theme.breakpoints.up('sm')]: {
-            marginTop: 64,
-        },
+        marginTop: 64,
         [theme.breakpoints.up('md')]: {
             marginTop: 0,
             marginLeft: DRAWER_WIDTH,

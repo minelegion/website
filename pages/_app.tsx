@@ -7,12 +7,27 @@ import { lightBlue, pink } from "@material-ui/core/colors";
 import { useRouter } from "next/router";
 import Sidenav from "@components/Sidenav/Sidenav";
 import { Fragment } from "react";
+import "../public/css/global.css";
 
 const theme = createMuiTheme({
     palette: {
         type: "dark",
         primary: lightBlue,
         secondary: pink,
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(', '),
     },
 });
 

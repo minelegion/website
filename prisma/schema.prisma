@@ -26,7 +26,7 @@ model User {
   isLogged   Int       @default(0) @db.SmallInt
   hasSession Int       @default(0) @db.SmallInt
   totp       String?   @db.VarChar(32)
-  skin       Skin?     @relation(fields: [username], references: [username])
+  skin       Skin?
   skinCopy   SkinCopy?
 
   @@map("authme")
@@ -45,7 +45,7 @@ model Skin {
   value     String? @map("Value") @db.Text
   signature String? @map("Signature") @db.Text
   timestamp String? @db.Text
-  user      User?
+  user      User    @relation(references: [username], fields: [username])
 
   @@map("skins")
 }

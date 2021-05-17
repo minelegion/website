@@ -2,11 +2,11 @@ import sharp from "sharp";
 import stream from "stream";
 import wrapper from "@lib/server/wrapper";
 import { API_ENDPOINT } from "@lib/client/fetch/get";
+import request from "request";
 
 export default wrapper(async (req, res) => {
     const username: string = req.query["username"] + "";
 
-    const request = require('request');
     const ps = new stream.PassThrough() // <---- this makes a trick with stream error handling
     
     let url = `${API_ENDPOINT}/skin/${username}`;
