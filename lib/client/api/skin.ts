@@ -5,7 +5,7 @@ export default class Skin {
         const formData = new FormData();
         formData.append("skin", file);
         
-        const resp = await post("/api/skin/change", {
+        const resp = await post("/skin/change", {
             body: formData,
         });
 
@@ -13,7 +13,7 @@ export default class Skin {
     }
 
     public static async reset() {
-        const resp = await post("/api/skin/reset");
+        const resp = await post("/skin/reset");
 
         return resp;
     }

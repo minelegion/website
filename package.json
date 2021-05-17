@@ -17,6 +17,7 @@
     "form-data": "^4.0.0",
     "formidable": "^1.2.2",
     "gm": "^1.23.1",
+    "mc-server-status": "^2.0.2",
     "next": "10.2.0",
     "next-auth": "^3.23.0",
     "notistack": "^1.0.7",
