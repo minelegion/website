@@ -17,6 +17,8 @@ export default wrapper(async (req) => {
     const skin = files["skin"];
     if(Array.isArray(skin)) throw new Error("Only one skin can be used");
 
+    console.log(skin);
+
     const buffer = fs.createReadStream(skin.path);
     const resp = await Skin.generate(buffer);
     const user = await User.get(req);
@@ -39,11 +41,9 @@ export default wrapper(async (req) => {
             },
         });
     } else {
-        await prisma.skin.update({
-            where: {
-                username: user.username,
-            },
+        await prisma.skin.create({
             data: {
+                username: user.username,
                 value: resp.value,
                 signature: resp.signature,
                 timestamp: "9223243187835955807",
@@ -62,8 +62,6 @@ const parse = (req: NextApiRequest): Promise<Files> => {
         const form = new IncomingForm();
         
         form.parse(req, (err, fields, files) => {
-            if(err) reject(err);
-
             resolve(files);
         });
     });

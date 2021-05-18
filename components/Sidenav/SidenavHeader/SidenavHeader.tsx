@@ -1,57 +1,84 @@
-import { Grid, ListItem, makeStyles, Typography } from "@material-ui/core";
+import { createMuiTheme, Grid, ListItem, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { useSession } from "next-auth/client";
 import Image from "next/image";
 import { Skeleton } from "@material-ui/lab";
 import { useRouter } from "next/router";
+import { useRole } from "@components/RoleProivder";
+import { roles, RoleType } from "@lib/client/api/role";
+
+const createTheme = (role: RoleType) => createMuiTheme({
+    palette: {
+        primary: roles[role]?.color,
+    },
+});
 
 const SidenavHeader = () => {
     const [session, isLoading] = useSession();
     const router = useRouter();
+    const role = useRole();
 
     const classes = useStyles();
 
-    if(!session && !isLoading) router.push("/dashboard/auth/signin");
+    if (!session && !isLoading) router.push("/dashboard/auth/signin");
+
+    const theme = createTheme(role);
 
     return (
-        <Grid container className={classes.wrapper} alignItems={"center"}>
-            <Grid item className={classes.icon}>
-                {session ? (
-                    <Image
-                        className={classes.rounded}
-                        src={`/api/avatar/${session.user?.name}`}
-                        width={48}
-                        height={48}
-                        unoptimized={true}    
-                    />
-                ) : (
-                    <Skeleton
-                        variant="rect"
-                        className={classes.rounded}
-                        width={48}
-                        height={48}
-                        animation={"wave"}
-                    />
-                )}
-            </Grid>
-            <Grid item className={classes.data}>
-                <Typography variant="body1" component="p" noWrap>
+        <ThemeProvider theme={theme}>
+            <Grid
+                container
+                className={classes.wrapper}
+                alignItems={"center"}
+                style={{
+                    backgroundColor: theme.palette.primary.main,
+                    color: theme.palette.primary.contrastText,
+                }}
+            >
+                <Grid item className={classes.icon}>
                     {session ? (
-                        session.user?.name
+                        <Image
+                            className={classes.rounded}
+                            src={`/api/avatar/${session.user?.name}`}
+                            width={48}
+                            height={48}
+                            unoptimized={true}
+                        />
                     ) : (
                         <Skeleton
                             variant="rect"
-                            animation={"wave"}
                             className={classes.rounded}
-                            width={172}
-                            height={24}
+                            width={48}
+                            height={48}
+                            animation={"wave"}
                         />
                     )}
-                </Typography>
-                <Typography variant="body2" component="p">
-                    Tulajdonos
-                </Typography>
+                </Grid>
+                <Grid item className={classes.data}>
+                    <Typography variant="body1" component="p" noWrap>
+                        {session ? (
+                            session.user?.name
+                        ) : (
+                            <Skeleton
+                                variant={"text"}
+                                animation={"wave"}
+                                height={24}
+                            />
+                        )}
+                    </Typography>
+                    {role ? (
+                        <Typography variant="body2" component="p">
+                            {roles[role].name}
+                        </Typography>
+                    ) : (
+                        <Skeleton
+                            variant={"text"}
+                            animation={"wave"}
+                            height={20}
+                        />
+                    )}
+                </Grid>
             </Grid>
-        </Grid>
+        </ThemeProvider>
     );
 };
 

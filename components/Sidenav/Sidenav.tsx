@@ -1,3 +1,4 @@
+import RoleProvider from "@components/RoleProivder";
 import { AppBar, createMuiTheme, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, ThemeProvider, Toolbar, Typography } from "@material-ui/core";
 import { HomeRounded as HomeIcon, InsertEmoticonRounded as SkinIcon, MenuRounded as MenuIcon, StarRounded as RanksIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
@@ -91,43 +92,45 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Hidden mdUp>
-                <AppBar>
-                    <Toolbar>
-                        <IconButton
-                            edge={"start"}
-                            color={"inherit"}
-                            onClick={() => setOpen(true)}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography className={classes.title} variant="h6">
-                            MineLegion
-                        </Typography>
-                    </Toolbar>
-                </AppBar>
-            </Hidden>
-            <Hidden smDown>
-                <Drawer variant="permanent">
-                    {DrawerContent}
-                </Drawer>
-            </Hidden>
-            <Hidden mdUp>
-                <Drawer
-                    variant="temporary"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    keepMounted
-                >
-                    {DrawerContent}
-                </Drawer>
-            </Hidden>
-            <div className={classes.main}>
-                {children}
-            </div>
-        </ThemeProvider>
+        <RoleProvider>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                <Hidden mdUp>
+                    <AppBar>
+                        <Toolbar>
+                            <IconButton
+                                edge={"start"}
+                                color={"inherit"}
+                                onClick={() => setOpen(true)}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography className={classes.title} variant="h6">
+                                MineLegion
+                            </Typography>
+                        </Toolbar>
+                    </AppBar>
+                </Hidden>
+                <Hidden smDown>
+                    <Drawer variant="permanent">
+                        {DrawerContent}
+                    </Drawer>
+                </Hidden>
+                <Hidden mdUp>
+                    <Drawer
+                        variant="temporary"
+                        open={open}
+                        onClose={() => setOpen(false)}
+                        keepMounted
+                    >
+                        {DrawerContent}
+                    </Drawer>
+                </Hidden>
+                <div className={classes.main}>
+                    {children}
+                </div>
+            </ThemeProvider>
+        </RoleProvider>
     );
 };
 
