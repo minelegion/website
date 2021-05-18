@@ -1,60 +1,52 @@
-import { Button, Card, CardActions, CardContent, Container, Grid, makeStyles, Typography } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, Container, createMuiTheme, Grid, Hidden, makeStyles, Typography } from "@material-ui/core";
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 const GettingStartedSection = () => {
     const classes = useStyles();
+    const router = useRouter();
 
     return (
-        <Container className={classes.container}>
+        <Container>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography gutterBottom variant="h5">
-                        Most kezdenél el játszani?
-                    </Typography>
+                    <Grid container spacing={2} alignItems={"center"} className={classes.container}>
+                        <Grid item xs={12} md={6}>
+                            <Typography gutterBottom variant="h5">Központ</Typography>
+                            <Typography gutterBottom>A központban tudsz magadnak kinézetet állítani, rangot vásárolni és egyéb jóságokra szert tetnni. Ajánlott körbenézni mindenképpen!</Typography>
+                            <Button
+                                color={"primary"}
+                                size={"large"}
+                                variant={"contained"}
+                                className={classes.button}
+                                onClick={() => router.push("/dashboard")}
+                            >Irány a központ!</Button>
+                        </Grid>
+                        <Hidden smDown>
+                            <Grid item md={6}>
+                                <Image src={"/img/explore.webp"} width={383} height={300} />
+                            </Grid>
+                        </Hidden>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" component="h2">
-                                Töltsd le a kliensünket
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                1. lépés
-                            </Typography>
-                            <Typography variant="body2">
-                                A saját fejlesztésű kliensünkkel ingyenesen hozzá tudsz férni a szerverhez.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" component="h2">
-                                Válassz egy felhasználónevet
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                2. lépés
-                            </Typography>
-                            <Typography variant="body2">
-                                A kliensen belül csak egy felhasználónevet kell beírnod és le kell töltened a játékot.
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </Grid>
-                <Grid item xs={12} md={4}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" component="h2">
-                                Regisztrálj a szerverre
-                            </Typography>
-                            <Typography variant="body1" gutterBottom>
-                                3. lépés
-                            </Typography>
-                            <Typography variant="body2">
-                                Amikor először belépsz a szerverre, meg kell adnod egy jelszót a /register [jelszó] [jelszóÚjra] paranccsal.
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                <Grid item xs={12}>
+                    <Grid container spacing={2} alignItems={"center"} className={classes.container}>
+                        <Hidden smDown>
+                            <Grid item md={6}>
+                                <Image src={"/img/redstone.webp"} width={427} height={337} />
+                            </Grid>
+                        </Hidden>
+                        <Grid item xs={12} md={6}>
+                            <Typography gutterBottom variant="h5">Saját kliens</Typography>
+                            <Typography gutterBottom>Szerverünkre bármilyen indítóval felléphetsz, de ha nem akarsz ezekkel vesződni, akkor nyugodtan használd a miénket!</Typography>
+                            <Button
+                                color={"primary"}
+                                size={"large"}
+                                variant={"contained"}
+                                className={classes.button}
+                            >Letöltés!</Button>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
         </Container>
@@ -65,6 +57,9 @@ const useStyles = makeStyles(() => ({
     container: {
         paddingTop: 32,
         paddingBottom: 32,
+    },
+    button: {
+        marginTop: 32,
     },
 }));
 

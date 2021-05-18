@@ -3,17 +3,19 @@ import { AppProps } from "next/dist/next-server/lib/router/router";
 import { Provider as SessionProvider } from "next-auth/client";
 import Head from "next/head";
 import { SnackbarProvider } from "notistack";
-import { lightBlue, pink } from "@material-ui/core/colors";
 import { useRouter } from "next/router";
 import Sidenav from "@components/Sidenav/Sidenav";
 import { Fragment } from "react";
 import "../public/css/global.css";
 
-const theme = createMuiTheme({
+export const theme = createMuiTheme({
     palette: {
-        type: "dark",
-        primary: lightBlue,
-        secondary: pink,
+        type: "light",
+        primary: {
+            main: "#AA0000",
+            contrastText: "#FFFFFF",
+            dark: "#990000",
+        },
     },
     typography: {
         fontFamily: [

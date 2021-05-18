@@ -1,9 +1,35 @@
-import { AppBar, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, createMuiTheme, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, ThemeProvider, Toolbar, Typography } from "@material-ui/core";
 import { HomeRounded as HomeIcon, InsertEmoticonRounded as SkinIcon, MenuRounded as MenuIcon, StarRounded as RanksIcon } from "@material-ui/icons";
 import { useRouter } from "next/router";
 import { Fragment, PropsWithChildren, useState } from "react";
 import LogoutButton from "./LogoutButton";
 import SidenavHeader from "./SidenavHeader";
+
+const theme = createMuiTheme({
+    palette: {
+        type: "dark",
+        primary: {
+            main: "#AA0000",
+            contrastText: "#FFFFFF",
+            dark: "#990000",
+        },
+    },
+    typography: {
+        fontFamily: [
+            '-apple-system',
+            'BlinkMacSystemFont',
+            '"Segoe UI"',
+            'Roboto',
+            '"Helvetica Neue"',
+            'Arial',
+            'sans-serif',
+            '"Apple Color Emoji"',
+            '"Segoe UI Emoji"',
+            '"Segoe UI Symbol"',
+        ].join(', '),
+    },
+});
+
 
 const Sidenav = ({ children }: PropsWithChildren<{}>) => {
     const [open, setOpen] = useState(false);
@@ -19,7 +45,7 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
                     <ListItem
                         button
                         key={"home-button"}
-                        onClick={() => router.push("/dashboard")}
+                        onClick={() => router.replace("/dashboard")}
                     >
                         <ListItemIcon>
                             <HomeIcon />
@@ -65,7 +91,8 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
     );
 
     return (
-        <Fragment>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
             <Hidden mdUp>
                 <AppBar>
                     <Toolbar>
@@ -100,7 +127,7 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
             <div className={classes.main}>
                 {children}
             </div>
-        </Fragment>
+        </ThemeProvider>
     );
 };
 

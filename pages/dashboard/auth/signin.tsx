@@ -52,14 +52,14 @@ const SigninPage = () => {
                         <ResponseiveCard maxHeightOnMobile={true}>
                             <CardContent>
                                 <Grid container spacing={3}>
-                                    <Grid item xs={12}>
-                                        <Typography variant="h5">Bejelentkezés</Typography>
+                                    <Grid item xs={12} alignContent={"center"}>
+                                        <Image src={"/img/logo.png"} width={513} height={129} />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <TextField
                                             disabled={isLoading || disabled}
                                             label="Felhasználónév"
-                                            variant="outlined"
+                                            variant={"filled"}
                                             fullWidth
                                             value={username}
                                             onChange={(e) => setUsername(e.target.value)}
@@ -70,7 +70,7 @@ const SigninPage = () => {
                                             disabled={isLoading || disabled}
                                             label="Jelszó"
                                             type="password"
-                                            variant="outlined"
+                                            variant={"filled"}
                                             fullWidth
                                             value={password}
                                             onChange={(e) => setPassword(e.target.value)}
@@ -79,7 +79,7 @@ const SigninPage = () => {
                                     <Grid item xs={12}>
                                         <Button
                                             variant="contained"
-                                            color="secondary"
+                                            color={"primary"}
                                             size="large"
                                             disabled={isLoading || disabled || !!session}
                                             onClick={onLogin}
@@ -97,7 +97,7 @@ const SigninPage = () => {
 
             <div className={classes.background}>
                 <Image
-                    src={"/img/bg.jpg"}
+                    src={"/img/medieval.png"}
                     quality={1}
                     layout="fill"
                     objectFit="cover"
@@ -110,7 +110,7 @@ const SigninPage = () => {
 const useStyles = makeStyles(() => ({
     container: {
         minHeight: "100vh",
-        backdropFilter: "blur(32px)",
+        backdropFilter: "blur(8px)",
         zIndex: 1000,
     },
     background: {

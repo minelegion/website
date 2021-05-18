@@ -58,6 +58,7 @@ const SidenavHeader = () => {
 const useStyles = makeStyles((theme) => ({
     wrapper: {
         backgroundColor: theme.palette.primary.main,
+        color: theme.palette.primary.contrastText,
         paddingLeft: 16,
         paddingRight: 16,
         paddingTop: 24,

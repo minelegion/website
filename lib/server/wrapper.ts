@@ -16,6 +16,7 @@ const wrapper = <T = {}>(endpoint: (req: NextApiRequest, res?: NextApiResponse) 
             const resp = await endpoint(req, res);
             if(resp) res.json(resp);
         } catch(e) {
+            console.log(e);
             res.json({
                 error: true,
                 message: e.message,
