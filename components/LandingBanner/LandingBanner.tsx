@@ -1,4 +1,3 @@
-import DiscordIcon from "@components/DiscordIcon";
 import { Button, Container, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { FileCopyRounded as CopyIcon, GetAppRounded as DownloadIcon } from "@material-ui/icons";
 import { useState } from "react";
@@ -56,7 +55,7 @@ const LandingBanner = () => {
     );
 };
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
     container: {
         paddingTop: 156,
         paddingBottom: 156,

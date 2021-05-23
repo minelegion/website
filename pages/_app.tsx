@@ -12,9 +12,8 @@ export const theme = createMuiTheme({
     palette: {
         type: "light",
         primary: {
-            main: "#AA0000",
+            main: "#00AA00",
             contrastText: "#FFFFFF",
-            dark: "#990000",
         },
     },
     typography: {

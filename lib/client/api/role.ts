@@ -1,5 +1,13 @@
 import get from "../fetch/get";
 
+type RoleData = {
+    name: string;
+    color: {
+        main: string;
+        contrastText: string;
+    };
+};
+
 export const roles = {
     tulaj: {
         name: "Tulajdonos",
