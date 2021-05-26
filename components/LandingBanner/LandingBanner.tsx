@@ -1,5 +1,6 @@
 import { Button, Container, Grid, makeStyles, ThemeProvider, Typography } from "@material-ui/core";
 import { FileCopyRounded as CopyIcon, GetAppRounded as DownloadIcon } from "@material-ui/icons";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import CopyAddressButton from "./CopyAddressButton";
 import DiscordButton from "./DiscordButton";
@@ -8,6 +9,7 @@ import DiscordModal from "./DiscordButton/DiscordModal";
 const LandingBanner = () => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
+    const router = useRouter();
 
     return (
         <div className={classes.background}>
@@ -32,6 +34,7 @@ const LandingBanner = () => {
                                 variant="contained"
                                 size="large"
                                 startIcon={<DownloadIcon />}
+                                onClick={() => router.push("/launcher")}
                             >
                                 Kliens letöltése
                             </Button>

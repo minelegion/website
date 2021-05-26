@@ -44,6 +44,7 @@ const GettingStartedSection = () => {
                                 size={"large"}
                                 variant={"contained"}
                                 className={classes.button}
+                                onClick={() => router.push("/launcher")}
                             >Letöltés!</Button>
                         </Grid>
                     </Grid>
