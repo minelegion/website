@@ -22,9 +22,9 @@ const options: NextAuthOptions = {
                 },
             },
             authorize: async (credentials) => {
-                const user = await prisma.user.findUnique({
+                const user = await prisma.user.findFirst({
                     where: {
-                        username: credentials["username"],
+                        realname: credentials["username"],
                     },
                 });
 
