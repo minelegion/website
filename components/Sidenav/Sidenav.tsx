@@ -1,3 +1,4 @@
+import DiscordIcon from "@components/DiscordIcon";
 import RoleProvider from "@components/RoleProivder";
 import { AppBar, createMuiTheme, CssBaseline, Divider, Drawer, Hidden, IconButton, List, ListItem, ListItemIcon, ListItemText, makeStyles, ThemeProvider, Toolbar, Typography } from "@material-ui/core";
 import { HomeRounded as HomeIcon, InsertEmoticonRounded as SkinIcon, MenuRounded as MenuIcon, StarRounded as RanksIcon } from "@material-ui/icons";
@@ -67,6 +68,18 @@ const Sidenav = ({ children }: PropsWithChildren<{}>) => {
                         </ListItemIcon>
                         <ListItemText
                             primary={"Kinézet"}
+                        />
+                    </ListItem>
+                    <ListItem
+                        onClick={() => router.push("/dashboard/discord")}
+                        button
+                        key={"discord-button"}
+                    >
+                        <ListItemIcon>
+                            <DiscordIcon />
+                        </ListItemIcon>
+                        <ListItemText
+                            primary={"Discord"}
                         />
                     </ListItem>
                     <ListItem

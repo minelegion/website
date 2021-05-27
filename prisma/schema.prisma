@@ -26,11 +26,22 @@ model User {
   isLogged   Int              @default(0) @db.SmallInt
   hasSession Int              @default(0) @db.SmallInt
   totp       String?          @db.VarChar(32)
+  discord    Discord?
   skinCopy   SkinCopy?
   skin       Skin?
   lp         LuckpermsPlayer?
 
   @@map("authme")
+}
+
+model Discord {
+  id       String @id
+  username String
+  avatar   String
+  user     User   @relation(references: [id], fields: [userId])
+  userId   Int    @db.UnsignedMediumInt
+
+  @@map(name: "discord_users")
 }
 
 model SkinCopy {
