@@ -10,7 +10,7 @@ datasource db {
 model User {
   id         Int              @id @default(autoincrement())
   username   String           @unique
-  realname   String
+  realname   String           @unique
   password   String
   ip         String?
   lastlogin  BigInt?

@@ -22,9 +22,9 @@ const options: NextAuthOptions = {
                 },
             },
             authorize: async (credentials) => {
-                const user = await prisma.user.findFirst({
+                const user = await prisma.user.findUnique({
                     where: {
-                        realname: credentials["username"],
+                        username: credentials["username"],
                     },
                 });
 
@@ -32,7 +32,7 @@ const options: NextAuthOptions = {
                 if(!(await bcrypt.compare(credentials["password"], user.password))) throw new Error("Hibás felhasználónév/jelszó páros!");
 
                 const response: User = {
-                    name: user.username,
+                    name: user.realname,
                 };
 
                 return response;
