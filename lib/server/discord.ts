@@ -46,6 +46,15 @@ export default class DiscordServer {
         });
 
         const account = await this.oauth.getUser(access_token);
+
+        await this.oauth.addMember({
+            accessToken: access_token,
+            botToken: process.env.DISCORD_BOT_TOKEN,
+            guildId: this.GUILD_ID,
+            userId: account.id,
+            nickname: user.username,
+        });
+
         const roles = await this.getRoles(user);
 
         const guild = await this.getGuild(this.GUILD_ID);
