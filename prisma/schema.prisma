@@ -10,7 +10,7 @@ datasource db {
 model User {
   id         Int              @id @default(autoincrement())
   username   String           @unique
-  realname   String           @unique
+  realname   String
   password   String
   ip         String?
   lastlogin  BigInt?
@@ -29,7 +29,6 @@ model User {
   discord    Discord?
   skinCopy   SkinCopy?
   skin       Skin?
-  lp         LuckpermsPlayer?
 
   @@map("authme")
 }
@@ -110,8 +109,6 @@ model LuckpermsPlayer {
   username      String
   primary_group String
   permissions   PlayerPermission[]
-
-  User User @relation(fields: [username], references: [username])
 
   @@index([username], name: "luckperms_players_username")
   @@map("luckperms_players")

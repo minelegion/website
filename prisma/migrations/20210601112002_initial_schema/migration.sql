@@ -45,9 +45,9 @@ CREATE TABLE `players` (
 -- CreateTable
 CREATE TABLE `skins` (
     `Nick` VARCHAR(191) NOT NULL,
-    `Value` VARCHAR(191),
-    `Signature` VARCHAR(191),
-    `timestamp` VARCHAR(191),
+    `Value` TEXT,
+    `Signature` TEXT,
+    `timestamp` TEXT,
 
     PRIMARY KEY (`Nick`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
