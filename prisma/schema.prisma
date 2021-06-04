@@ -8,23 +8,23 @@ datasource db {
 }
 
 model User {
-  id         Int              @id @default(autoincrement())
-  username   String           @unique
+  id         Int       @id @default(autoincrement())
+  username   String    @unique
   realname   String
   password   String
   ip         String?
   lastlogin  BigInt?
-  x          Float            @default(0)
-  y          Float            @default(0)
-  z          Float            @default(0)
-  world      String           @default("world")
-  regdate    BigInt           @default(0)
+  x          Float     @default(0)
+  y          Float     @default(0)
+  z          Float     @default(0)
+  world      String    @default("world")
+  regdate    BigInt    @default(0)
   regip      String?
   yaw        Float?
   pitch      Float?
   email      String?
-  isLogged   Int              @default(0)
-  hasSession Int              @default(0)
+  isLogged   Int       @default(0)
+  hasSession Int       @default(0)
   totp       String?
   discord    Discord?
   skinCopy   SkinCopy?
@@ -34,10 +34,10 @@ model User {
 }
 
 model Discord {
-  id       String @id
+  id       String  @id
   username String
-  avatar   String
-  user     User   @relation(references: [id], fields: [userId])
+  avatar   String?
+  user     User    @relation(references: [id], fields: [userId])
   userId   Int
 
   @@map(name: "discord_users")
