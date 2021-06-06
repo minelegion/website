@@ -27,7 +27,7 @@ CREATE TABLE `authme` (
 CREATE TABLE `discord_users` (
     `id` VARCHAR(191) NOT NULL,
     `username` VARCHAR(191) NOT NULL,
-    `avatar` VARCHAR(191) NOT NULL,
+    `avatar` VARCHAR(191),
     `userId` INTEGER NOT NULL,
 
     UNIQUE INDEX `discord_users_userId_unique`(`userId`),
@@ -104,7 +104,6 @@ CREATE TABLE `luckperms_players` (
     `primary_group` VARCHAR(191) NOT NULL,
 
     INDEX `luckperms_players_username`(`username`),
-    UNIQUE INDEX `luckperms_players_username_unique`(`username`),
     PRIMARY KEY (`uuid`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -133,18 +132,3 @@ CREATE TABLE `luckperms_user_permissions` (
 
 -- AddForeignKey
 ALTER TABLE `discord_users` ADD FOREIGN KEY (`userId`) REFERENCES `authme`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `players` ADD FOREIGN KEY (`Nick`) REFERENCES `authme`(`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `skins` ADD FOREIGN KEY (`Nick`) REFERENCES `authme`(`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `luckperms_group_permissions` ADD FOREIGN KEY (`name`) REFERENCES `luckperms_groups`(`name`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `luckperms_players` ADD FOREIGN KEY (`username`) REFERENCES `authme`(`username`) ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `luckperms_user_permissions` ADD FOREIGN KEY (`uuid`) REFERENCES `luckperms_players`(`uuid`) ON DELETE CASCADE ON UPDATE CASCADE;

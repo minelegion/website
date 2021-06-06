@@ -27,8 +27,6 @@ model User {
   hasSession Int       @default(0)
   totp       String?
   discord    Discord?
-  skinCopy   SkinCopy?
-  skin       Skin?
 
   @@map("authme")
 }
@@ -46,7 +44,6 @@ model Discord {
 model SkinCopy {
   username String @id @map("Nick")
   skin     String @map("Skin")
-  user     User?  @relation(fields: [username], references: [username])
 
   @@map("players")
 }
@@ -56,7 +53,6 @@ model Skin {
   value     String? @map("Value") @db.Text
   signature String? @map("Signature") @db.Text
   timestamp String? @db.Text
-  user      User?   @relation(fields: [username], references: [username])
 
   @@map("skins")
 }
@@ -83,7 +79,6 @@ model GroupPermission {
   world      String
   expiry     BigInt
   contexts   String
-  group      Group   @relation(references: [name], fields: [name])
 
   @@index([name], name: "luckperms_group_permissions_name")
   @@map("luckperms_group_permissions")
@@ -91,7 +86,6 @@ model GroupPermission {
 
 model Group {
   name        String            @id
-  permissions GroupPermission[]
 
   @@map("luckperms_groups")
 }
@@ -108,7 +102,6 @@ model LuckpermsPlayer {
   uuid          String             @id
   username      String
   primary_group String
-  permissions   PlayerPermission[]
 
   @@index([username], name: "luckperms_players_username")
   @@map("luckperms_players")
@@ -130,7 +123,6 @@ model PlayerPermission {
   world      String
   expiry     BigInt
   contexts   String
-  player     LuckpermsPlayer @relation(fields: [uuid], references: [uuid])
 
   @@index([uuid], name: "luckperms_user_permissions_uuid")
   @@map("luckperms_user_permissions")
