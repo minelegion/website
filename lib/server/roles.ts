@@ -6,18 +6,15 @@ export default class Roles {
     public static async get(user: User): Promise<RoleType> {
         let resp: RoleType = "default";
 
-        const rank = await prisma.user.findUnique({
+        const rank = await prisma.luckpermsPlayer.findFirst({
             where: {
                 username: user.username,
             },
-            include: {
-                lp: true,
-            },
         });
-    
+
         if(rank) {
             // @ts-ignore
-            resp = rank.lp.primary_group;
+            resp = rank.primary_group
         }
 
         return resp;
